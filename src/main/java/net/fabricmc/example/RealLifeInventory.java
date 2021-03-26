@@ -30,7 +30,7 @@ public class RealLifeInventory implements ModInitializer {
 
 		Registry.register(Registry.ITEM, new Identifier("graham", "wand"), WAND);
 		Registry.register(Registry.BLOCK, new Identifier("graham", "document_block"), DOCUMENT_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier("graham", "document_item"), DOCUMENT_ITEM);
+		Registry.register(Registry.ITEM, new Identifier("graham", "document_block"), DOCUMENT_ITEM);
 
 		// Load directory
 		File directory = new File(dir);

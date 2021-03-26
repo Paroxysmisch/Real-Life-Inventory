@@ -1,5 +1,6 @@
 package net.fabricmc.example;
 
+import com.google.gson.JsonElement;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -13,6 +14,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.entity.vehicle.MinecartEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -49,19 +51,23 @@ public class DocumentBlock extends Block {
     @Override
     public void onBroken(WorldAccess world, BlockPos pos, BlockState state) {
         System.out.println("BROKEN!");
-        ae.kill();
         PlayerEntity pe = world.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), 1000, false);
         ItemStack itemStack = new ItemStack(new DocumentItem()).setCustomName(ae.getName());
+        ae.kill();
         assert pe != null;
         pe.giveItemStack(itemStack);
     }
 
     @Override
     public void onSteppedOn(World world, BlockPos pos, Entity entity) {
-        try {
-            Desktop.getDesktop().open(new File(RealLifeInventory.dir + "\\" + ae.getName()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        Desktop desktop = Desktop.getDesktop();
+//        desktop.browseFileDirectory(new File(RealLifeInventory.dir + "\\" + ae.getName()));
+        JsonElement partial = Text.Serializer.toJsonTree(ae.getName());
+        System.out.println("start " + RealLifeInventory.dir + "\\" + partial.getAsJsonObject().get("translate").getAsString());
+//        try {
+//            Runtime.getRuntime().exec("start " + RealLifeInventory.dir + "\\" + ae.getName().getString());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 }
