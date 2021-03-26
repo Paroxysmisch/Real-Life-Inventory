@@ -16,6 +16,7 @@ public class RealLifeInventory implements ModInitializer {
 	public static final Wand WAND = new Wand();
 	public static final DocumentBlock DOCUMENT_BLOCK = new DocumentBlock();
 	public static final DocumentItem DOCUMENT_ITEM = new DocumentItem();
+	public static final String dir = "C:\\Program Files\\Git";
 
 	// item state
 	public static ArrayList<File> contents = null;
@@ -32,7 +33,6 @@ public class RealLifeInventory implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier("graham", "document_item"), DOCUMENT_ITEM);
 
 		// Load directory
-		String dir = "C:\\Program Files\\Git";
 		File directory = new File(dir);
 		contents = new ArrayList<>(Arrays.asList(directory.listFiles()));
 
