@@ -15,7 +15,6 @@ public class Wand extends Item {
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity playerEntity, Hand hand) {
-        //playerEntity.inventory.addPickBlock(new ItemStack(Items.IRON_HOE));
         playerEntity.giveItemStack(new ItemStack(Items.IRON_HOE));
         return TypedActionResult.success(playerEntity.getStackInHand(hand));
     }

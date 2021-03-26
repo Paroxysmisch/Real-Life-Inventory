@@ -13,8 +13,8 @@ import net.minecraft.util.registry.Registry;
 
 public class RealLifeInventory implements ModInitializer {
 	// an instance of our new item
-	public static final Wand FABRIC_ITEM = new Wand(new FabricItemSettings().group(ItemGroup.MISC));
-	public static final DocumentBlock EXAMPLE_BLOCK = new DocumentBlock(FabricBlockSettings.of(Material.METAL).strength(4.0f));
+	public static final Wand WAND = new Wand(new FabricItemSettings().group(ItemGroup.MISC));
+	public static final DocumentBlock DOCUMENT_BLOCK = new DocumentBlock(FabricBlockSettings.of(Material.METAL).strength(4.0f));
 
 	@Override
 	public void onInitialize() {
@@ -22,9 +22,9 @@ public class RealLifeInventory implements ModInitializer {
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
 
-		Registry.register(Registry.ITEM, new Identifier("graham", "Wand"), FABRIC_ITEM);
-		Registry.register(Registry.BLOCK, new Identifier("graham", "Document Block"), EXAMPLE_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier("graham", "Document Block"), new BlockItem(EXAMPLE_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
+		Registry.register(Registry.ITEM, new Identifier("graham", "Wand"), WAND);
+		Registry.register(Registry.BLOCK, new Identifier("graham", "Document Block"), DOCUMENT_BLOCK);
+		Registry.register(Registry.ITEM, new Identifier("graham", "Document Block"), new BlockItem(DOCUMENT_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
 
 		System.out.println("Hello Fabric world!");
 	}
