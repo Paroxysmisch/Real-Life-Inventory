@@ -3,8 +3,10 @@ package net.fabricmc.example;
 import com.google.gson.JsonElement;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
@@ -20,6 +22,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
@@ -28,9 +31,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public class DocumentBlock extends Block {
-
-    ArmorStandEntity ae = null;
+public class DocumentBlock extends Block implements BlockEntityProvider {
 
     public DocumentBlock() {
         super(FabricBlockSettings.of(Material.METAL).strength(4.0f));
@@ -39,19 +40,33 @@ public class DocumentBlock extends Block {
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         System.out.println("PLACED!");
-        ae = new ArmorStandEntity(world, pos.getX() + 0.5, pos.getY() - 0.5, pos.getZ() + 0.5);
+        DocumentBlockEntity entity = (DocumentBlockEntity) world.getBlockEntity(pos);
+        JsonElement partial = Text.Serializer.toJsonTree(itemStack.getName());
+        entity.setFilename(partial.getAsJsonObject().get("translate").getAsString());
+
+        ArmorStandEntity ae = new ArmorStandEntity(world, pos.getX() + 0.5, pos.getY() - 0.5, pos.getZ() + 0.5);
         ae.setCustomName(itemStack.getName());
         ae.setCustomNameVisible(true);
         ae.setNoGravity(true);
         ae.setInvisible(true);
-        ae.noClip = true;
+        ae.setInvulnerable(true);
+
+        entity.setArmorStandID(ae.getEntityId());
+
         world.spawnEntity(ae);
+
+        world.markDirty(pos, entity);
     }
 
     @Override
-    public void onBroken(WorldAccess world, BlockPos pos, BlockState state) {
+    public void afterBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
         System.out.println("BROKEN!");
+        DocumentBlockEntity entity = (DocumentBlockEntity) blockEntity;
         PlayerEntity pe = world.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), 1000, false);
+        assert entity != null;
+        // ArmorStandEntity ae = (ArmorStandEntity) world.getEntityById(entity.getArmorStandID());
+        ArmorStandEntity ae = world.getE
+        assert ae != null;
         ItemStack itemStack = new ItemStack(new DocumentItem()).setCustomName(ae.getName());
         ae.kill();
         assert pe != null;
@@ -59,15 +74,20 @@ public class DocumentBlock extends Block {
     }
 
     @Override
-    public void onSteppedOn(World world, BlockPos pos, Entity entity) {
-//        Desktop desktop = Desktop.getDesktop();
-//        desktop.browseFileDirectory(new File(RealLifeInventory.dir + "\\" + ae.getName()));
-        JsonElement partial = Text.Serializer.toJsonTree(ae.getName());
-        System.out.println("start " + RealLifeInventory.dir + "\\" + partial.getAsJsonObject().get("translate").getAsString());
-//        try {
-//            Runtime.getRuntime().exec("start " + RealLifeInventory.dir + "\\" + ae.getName().getString());
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+    public void onLandedUpon(World world, BlockPos pos, Entity _entity, float distance) {
+        DocumentBlockEntity entity = (DocumentBlockEntity) world.getBlockEntity(pos);
+        assert entity != null;
+        System.out.println("start \"graham\" \"" + RealLifeInventory.dir + "\\" + entity.getFilename() + "\"");
+        try {
+            Runtime.getRuntime().exec("start \"graham\" \"" + RealLifeInventory.dir + "\\" + entity.getFilename() + "\"");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity createBlockEntity(BlockView world) {
+        return new DocumentBlockEntity();
     }
 }
