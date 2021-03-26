@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "graham:block/document_block" }
+  }
+}
