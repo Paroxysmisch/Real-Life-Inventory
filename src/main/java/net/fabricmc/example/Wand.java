@@ -19,7 +19,8 @@ public class Wand extends Item {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity playerEntity, Hand hand) {
         if (RealLifeInventory.contentsPosition < RealLifeInventory.contents.size()) {
-            playerEntity.giveItemStack(new ItemStack(new DocumentItem()).setCustomName(new TranslatableText(RealLifeInventory.contents.get(RealLifeInventory.contentsPosition).getName())));
+            ItemStack itemStack = new ItemStack(new DocumentItem()).setCustomName(new TranslatableText(RealLifeInventory.contents.get(RealLifeInventory.contentsPosition).getName()));
+            playerEntity.giveItemStack(itemStack);
             System.out.println(RealLifeInventory.contents.get(RealLifeInventory.contentsPosition).getName());
             RealLifeInventory.contentsPosition++;
         }
