@@ -11,6 +11,9 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
+import java.io.File;
+import java.util.Locale;
+
 public class RealLifeInventory implements ModInitializer {
 	// an instance of our new item
 	public static final Wand FABRIC_ITEM = new Wand(new FabricItemSettings().group(ItemGroup.MISC));
@@ -25,6 +28,18 @@ public class RealLifeInventory implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier("graham", "Wand"), FABRIC_ITEM);
 		Registry.register(Registry.BLOCK, new Identifier("graham", "Document Block"), EXAMPLE_BLOCK);
 		Registry.register(Registry.ITEM, new Identifier("graham", "Document Block"), new BlockItem(EXAMPLE_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
+
+		//load directory
+		String dir = "C:\\Program Files\\Git";
+		File directory = new File(dir);
+		File[] contents = directory.listFiles();
+		for ( File f : contents) {
+			String itemName = f.getName().replace(' ', '_').replace('.', '_').toLowerCase(Locale.ROOT);
+			System.out.println(itemName);
+			Registry.register(Registry.ITEM, new Identifier("graham", itemName), new Item(new FabricItemSettings().group(ItemGroup.MISC)));
+		}
+
+		System.out.println("Hello Fabric world!");
 
 		System.out.println("Hello Fabric world!");
 	}
