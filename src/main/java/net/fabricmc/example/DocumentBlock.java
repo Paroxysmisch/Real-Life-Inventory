@@ -8,7 +8,10 @@ import net.minecraft.util.registry.Registry;
 
 public class DocumentBlock extends Block {
 
-    public DocumentBlock(Settings settings) {
-        super(settings);
+    public DocumentBlock() {
+
+        super(FabricBlockSettings.of(Material.METAL).strength(4.0f));
+
     }
+
 }
