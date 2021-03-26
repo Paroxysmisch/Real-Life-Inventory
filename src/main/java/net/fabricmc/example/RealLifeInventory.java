@@ -19,7 +19,7 @@ import java.util.Locale;
 public class RealLifeInventory implements ModInitializer {
 	// an instance of our new item
 	public static final Wand FABRIC_ITEM = new Wand(new FabricItemSettings().group(ItemGroup.MISC));
-	public static final DocumentBlock EXAMPLE_BLOCK  = new DocumentBlock(FabricBlockSettings.of(Material.METAL).strength(4.0f));
+	public static final DocumentBlock EXAMPLE_BLOCK  = new DocumentBlock();
 
 	// item state
 	public static ArrayList<File> contents = null;
