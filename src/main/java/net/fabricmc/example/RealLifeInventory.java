@@ -39,12 +39,6 @@ public class RealLifeInventory implements ModInitializer {
 		String dir = "C:\\Program Files\\Git";
 		File directory = new File(dir);
 		contents = new ArrayList<>(Arrays.asList(directory.listFiles()));
-		//contents = Arrays.asList(directory.listFiles());
-//		for (File f : contents) {
-//			String itemName = f.getName().replace(' ', '_').replace('.', '_').toLowerCase(Locale.ROOT);
-//			System.out.println(itemName);
-//			Registry.register(Registry.ITEM, new Identifier("graham", itemName), new Item(new FabricItemSettings().group(ItemGroup.MISC)));
-//		}
 
 		System.out.println("Hello Fabric world!");
 	}
