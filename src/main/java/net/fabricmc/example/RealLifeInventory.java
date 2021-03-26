@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
@@ -21,8 +22,9 @@ public class RealLifeInventory implements ModInitializer {
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
 
-		Registry.register(Registry.ITEM, new Identifier("tutorial", "fabric_item"), FABRIC_ITEM);
-		Registry.register(Registry.BLOCK, new Identifier("tutorial", "example_block"), EXAMPLE_BLOCK);
+		Registry.register(Registry.ITEM, new Identifier("graham", "Wand"), FABRIC_ITEM);
+		Registry.register(Registry.BLOCK, new Identifier("graham", "Document Block"), EXAMPLE_BLOCK);
+		Registry.register(Registry.ITEM, new Identifier("graham", "Document Block"), new BlockItem(EXAMPLE_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
 
 		System.out.println("Hello Fabric world!");
 	}
