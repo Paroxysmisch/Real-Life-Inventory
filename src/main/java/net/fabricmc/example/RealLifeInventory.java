@@ -9,7 +9,7 @@ import net.minecraft.util.registry.Registry;
 
 public class RealLifeInventory implements ModInitializer {
 	// an instance of our new item
-	public static final Item FABRIC_ITEM = new Item(new FabricItemSettings().group(ItemGroup.MISC));
+	public static final Wand FABRIC_ITEM = new Wand(new FabricItemSettings().group(ItemGroup.MISC));
 	@Override
 	public void onInitialize() {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
