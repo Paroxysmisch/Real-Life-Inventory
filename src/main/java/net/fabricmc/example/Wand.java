@@ -15,7 +15,10 @@ public class Wand extends Item {
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity playerEntity, Hand hand) {
-        playerEntity.giveItemStack(new ItemStack(Items.IRON_HOE));
+        if (RealLifeInventory.contentsPosition < RealLifeInventory.contents.size()) {
+            playerEntity.giveItemStack(new ItemStack(Items.IRON_HOE));
+            RealLifeInventory.contentsPosition++;
+        }
         return TypedActionResult.success(playerEntity.getStackInHand(hand));
     }
 }
