@@ -18,13 +18,24 @@ public class Wand extends Item {
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity playerEntity, Hand hand) {
-        if (RealLifeInventory.contentsPosition < RealLifeInventory.contents.size()) {
-            System.out.println(RealLifeInventory.contentsPosition + ":" + RealLifeInventory.contents.size());
-            ItemStack itemStack = new ItemStack(new DocumentItem()).setCustomName(new TranslatableText(RealLifeInventory.contents.get(RealLifeInventory.contentsPosition).getName()));
-            playerEntity.giveItemStack(itemStack);
-            System.out.println(RealLifeInventory.contents.get(RealLifeInventory.contentsPosition).getName());
-            RealLifeInventory.contentsPosition++;
+        //very weird thread stuff!
+        if (Thread.currentThread().getName().equals("Render thread")) {
+            if (RealLifeInventory.contentsPositionRender < RealLifeInventory.contents.size()) {
+                ItemStack itemStack = new ItemStack(new DocumentItem()).setCustomName(new TranslatableText(RealLifeInventory.contents.get(RealLifeInventory.contentsPositionRender).getName()));
+                playerEntity.giveItemStack(itemStack);
+                System.out.println(RealLifeInventory.contents.get(RealLifeInventory.contentsPositionRender).getName());
+                RealLifeInventory.contentsPositionRender++;
+            }
         }
+        else {
+            if (RealLifeInventory.contentsPositionServer < RealLifeInventory.contents.size()) {
+                ItemStack itemStack = new ItemStack(new DocumentItem()).setCustomName(new TranslatableText(RealLifeInventory.contents.get(RealLifeInventory.contentsPositionServer).getName()));
+                playerEntity.giveItemStack(itemStack);
+                System.out.println(RealLifeInventory.contents.get(RealLifeInventory.contentsPositionServer).getName());
+                RealLifeInventory.contentsPositionServer++;
+            }
+        }
+
         return TypedActionResult.success(playerEntity.getStackInHand(hand));
     }
 }

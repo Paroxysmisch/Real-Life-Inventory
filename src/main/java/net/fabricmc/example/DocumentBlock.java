@@ -63,13 +63,10 @@ public class DocumentBlock extends Block implements BlockEntityProvider {
         System.out.println("BROKEN!");
         DocumentBlockEntity entity = (DocumentBlockEntity) blockEntity;
         PlayerEntity pe = world.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), 1000, false);
-        assert entity != null;
-        // ArmorStandEntity ae = (ArmorStandEntity) world.getEntityById(entity.getArmorStandID());
-        ArmorStandEntity ae = world.getE
-        assert ae != null;
+        ArmorStandEntity ae = (ArmorStandEntity) world.getEntityById(entity.getArmorStandID());
+        //FIX - ae is null
         ItemStack itemStack = new ItemStack(new DocumentItem()).setCustomName(ae.getName());
         ae.kill();
-        assert pe != null;
         pe.giveItemStack(itemStack);
     }
 
@@ -79,7 +76,7 @@ public class DocumentBlock extends Block implements BlockEntityProvider {
         assert entity != null;
         System.out.println("start \"graham\" \"" + RealLifeInventory.dir + "\\" + entity.getFilename() + "\"");
         try {
-            Runtime.getRuntime().exec("start \"graham\" \"" + RealLifeInventory.dir + "\\" + entity.getFilename() + "\"");
+            Runtime.getRuntime().exec("cmd.exe /c start \"graham\" \"" + RealLifeInventory.dir + "\\" + entity.getFilename() + "\"");
         } catch (IOException e) {
             e.printStackTrace();
         }
