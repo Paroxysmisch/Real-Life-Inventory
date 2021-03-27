@@ -2,7 +2,6 @@ package net.fabricmc.example;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.nbt.CompoundTag;
 
 public class DocumentBlockEntity extends BlockEntity {

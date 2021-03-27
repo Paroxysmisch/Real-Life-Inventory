@@ -5,11 +5,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
+
+import static net.fabricmc.example.RealLifeInventory.DOCUMENT_ITEM;
 
 public class Wand extends Item {
     public Wand() {
@@ -21,7 +22,7 @@ public class Wand extends Item {
         //very weird thread stuff!
         if (Thread.currentThread().getName().equals("Render thread")) {
             if (RealLifeInventory.contentsPositionRender < RealLifeInventory.contents.size()) {
-                ItemStack itemStack = new ItemStack(new DocumentItem()).setCustomName(new TranslatableText(RealLifeInventory.contents.get(RealLifeInventory.contentsPositionRender).getName()));
+                ItemStack itemStack = new ItemStack(DOCUMENT_ITEM).setCustomName(new TranslatableText(RealLifeInventory.contents.get(RealLifeInventory.contentsPositionRender).getName()));
                 playerEntity.giveItemStack(itemStack);
                 System.out.println(RealLifeInventory.contents.get(RealLifeInventory.contentsPositionRender).getName());
                 RealLifeInventory.contentsPositionRender++;
@@ -29,7 +30,7 @@ public class Wand extends Item {
         }
         else {
             if (RealLifeInventory.contentsPositionServer < RealLifeInventory.contents.size()) {
-                ItemStack itemStack = new ItemStack(new DocumentItem()).setCustomName(new TranslatableText(RealLifeInventory.contents.get(RealLifeInventory.contentsPositionServer).getName()));
+                ItemStack itemStack = new ItemStack(DOCUMENT_ITEM).setCustomName(new TranslatableText(RealLifeInventory.contents.get(RealLifeInventory.contentsPositionServer).getName()));
                 playerEntity.giveItemStack(itemStack);
                 System.out.println(RealLifeInventory.contents.get(RealLifeInventory.contentsPositionServer).getName());
                 RealLifeInventory.contentsPositionServer++;

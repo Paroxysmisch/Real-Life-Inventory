@@ -1,14 +1,9 @@
 package net.fabricmc.example;
 
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import org.apache.commons.lang3.mutable.MutableInt;
-import org.lwjgl.system.CallbackI;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -19,7 +14,7 @@ public class RealLifeInventory implements ModInitializer {
 	public static final Wand WAND = new Wand();
 	public static final DocumentBlock DOCUMENT_BLOCK = new DocumentBlock();
 	public static final DocumentItem DOCUMENT_ITEM = new DocumentItem();
-	public static final String dir = "C:\\Users\\Marc\\Documents\\hackathon\\Real-Life-Inventory\\Test Folder";
+	public static final String dir = "C:\\Users\\yashs\\IdeaProjects\\Real-Life-Inventory\\Test Folder";
 	public static BlockEntityType<DocumentBlockEntity> DOCUMENT_BLOCK_ENTITY;
 
 	// item state
